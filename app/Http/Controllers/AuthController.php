@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -26,14 +27,17 @@ class AuthController extends Controller
 
         $user = User::create([
             'nama_lengkap' => $validated['nama_lengkap'],
-            'email' => $validated['email'],
-            'username' => $validated['username'],
-            'password' => Hash::make($validated['password']),
-            'no_hp' => $validated['no_hp'],
-            'alamat' => $validated['alamat'],
+            'email'       => $validated['email'],
+            'username'    => $validated['username'],
+            'password'    => Hash::make($validated['password']),
+            'no_hp'       => $validated['no_hp'],
+            'alamat'      => $validated['alamat'],
+            'role'        => 'customer',
         ]);
 
         Auth::login($user);
+
+        $request->session()->regenerate();
 
         return redirect('/')->with(
             'success',

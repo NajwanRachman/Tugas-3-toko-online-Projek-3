@@ -15,17 +15,19 @@ class User extends Authenticatable
 
     protected $primaryKey = 'id_user';
 
-    public $incrementing = true;
+    public $incrementing = false;
 
-    protected $keyType = 'int';
+    protected $keyType = 'string';
 
     protected $fillable = [
+        'id_user',
         'nama_lengkap',
         'email',
         'username',
         'password',
         'no_hp',
         'alamat',
+        'role',
     ];
 
     protected $hidden = [
@@ -42,6 +44,10 @@ class User extends Authenticatable
 
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'id_user', 'id_user');
+        return $this->hasMany(
+            Order::class,
+            'id_user',
+            'id_user'
+        );
     }
 }
